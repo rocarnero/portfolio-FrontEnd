@@ -1,0 +1,69 @@
+<app-header></app-header>
+<section>
+  <div class="card">
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/001/849/553/original/modern-gold-background-free-vector.jpg"
+      class="card-img-top img-fluid"
+      alt="..."
+      style="height: 400px"
+    />
+    <div class="card-body">
+      <h5 class="card-title">Rocio Carnero</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <img
+        src="https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
+        class="img-thumbnail"
+        style="height: 100px"
+      />
+    </div>
+  </div>
+</section>
+<app-about data="Matematico fisico e informatico"></app-about>
+<section>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Experiencia</h5>
+      <app-experience-row
+        *ngFor="let item of experiences; index as i; trackBy: experienceTrackBy"
+        [experience]="item"
+      ></app-experience-row>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Educacion</h5>
+      <app-education-row
+        *ngFor="
+          let item of educationItems;
+          index as i;
+          trackBy: educationTrackBy
+        "
+        [education]="item"
+      ></app-education-row>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Hard Skills & Soft Skills</h5>
+      <app-skill-row
+        *ngFor="let item of skills; index as i; trackBy: skillTrackBy"
+        [skill]="item"
+      ></app-skill-row>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Proyectos</h5>
+      <app-project-row
+        *ngFor="let item of projects; index as i; trackBy: projectTrackBy"
+        [project]="item"
+      ></app-project-row>
+    </div>
+  </div>
+</section>
