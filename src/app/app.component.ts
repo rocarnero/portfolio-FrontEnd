@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './services/user.service';
 const EXPERIENCES = [
   {
     id: 1,
@@ -43,26 +44,4 @@ const PROJECTS = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'portfolio';
-  experiences = EXPERIENCES;
-  educationItems = EDUCATION_ITEMS;
-  skills = SKILLS;
-  projects = PROJECTS;
-
-  experienceTrackBy(index: number, experience: any) {
-    return experience.id;
-  }
-
-  educationTrackBy(index: number, education: any) {
-    return education.id;
-  }
-
-  skillTrackBy(index: number, skill: any) {
-    return skill.id;
-  }
-
-  projectTrackBy(index: number, project: any) {
-    return project.id;
-  }
-}
+export class AppComponent {}
