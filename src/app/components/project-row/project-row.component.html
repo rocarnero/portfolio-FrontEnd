@@ -1,4 +1,24 @@
-<a [href]="project.link" target="_blank"
-  ><h3>{{ project.title }}</h3></a
->
-<p>{{ project.description }}</p>
+<div class="row">
+  <div class="col">
+    <p>{{ project.title }}</p>
+    <div>{{ project.description }}</div>
+    <img src="" />
+    <div>{{ project.link }}</div>
+  </div>
+  <div class="col">
+    <button
+      class="btn btn-info"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#projectModal"
+      (click)="onEdit(project)"
+    >
+      <i class="bi-pencil" style="color: white"></i>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-danger" type="button" (click)="onDelete(index)">
+      <i class="bi-trash"></i>
+    </button>
+  </div>
+</div>

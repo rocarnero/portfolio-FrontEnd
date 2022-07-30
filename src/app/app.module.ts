@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -12,6 +13,7 @@ import { ProjectRowComponent } from './components/project-row/project-row.compon
 import { AboutComponent } from './components/about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { LanguageRowComponent } from './components/language-row/language-row.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,9 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
     ProjectRowComponent,
     AboutComponent,
     PortfolioComponent,
+    LanguageRowComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

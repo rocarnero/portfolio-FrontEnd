@@ -12,4 +12,8 @@ export class UserService {
   getUserBySlug(slug: String) {
     return this.httpClient.get(`${this.url}${slug}`);
   }
+
+  updateUserBySlug(slug: String, data: any) {
+    return this.httpClient.put(`${this.url}${slug}`, data);
+  }
 }

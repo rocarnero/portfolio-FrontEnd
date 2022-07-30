@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SkillRowComponent implements OnInit {
   @Input() skill: any;
+  @Input() index: any;
+  @Input() onDelete: any;
+  @Input() onEdit: any;
 
   constructor() {}
 

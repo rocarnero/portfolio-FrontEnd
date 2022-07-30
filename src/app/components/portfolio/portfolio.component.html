@@ -11,11 +11,21 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+        <h6 class="card-title">{{ user.email }}</h6>
         <img
           src="https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
           class="img-thumbnail"
           style="height: 100px"
         />
+        <button
+          type="button"
+          class="btn btn-info"
+          data-bs-toggle="modal"
+          data-bs-target="#infoModal"
+          (click)="setModalInfo(user)"
+        >
+          <i class="bi-pencil" style="color: white"></i>
+        </button>
       </div>
     </div>
   </section>
@@ -23,7 +33,22 @@
   <section>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Experiencia</h5>
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Experiencia</h5>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#experienceModal"
+              (click)="setModalExperience({})"
+            >
+              <i class="bi-plus"></i>
+            </button>
+          </div>
+        </div>
         <app-experience-row
           *ngFor="
             let item of user.experiences;
@@ -31,6 +56,9 @@
             trackBy: experienceTrackBy
           "
           [experience]="item"
+          [index]="i"
+          [onDelete]="handleDeleteExperience"
+          [onEdit]="handleEditExperience"
         ></app-experience-row>
       </div>
     </div>
@@ -38,7 +66,22 @@
   <section>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Educacion</h5>
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Educacion</h5>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#educationModal"
+              (click)="setModalEducation({})"
+            >
+              <i class="bi-plus"></i>
+            </button>
+          </div>
+        </div>
         <app-education-row
           *ngFor="
             let item of user.educations;
@@ -46,6 +89,9 @@
             trackBy: educationTrackBy
           "
           [education]="item"
+          [index]="i"
+          [onDelete]="handleDeleteEducation"
+          [onEdit]="handleEditEducation"
         ></app-education-row>
       </div>
     </div>
@@ -53,10 +99,28 @@
   <section>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Hard Skills & Soft Skills</h5>
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Hard Skills & Soft Skills</h5>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#skillModal"
+              (click)="setModalSkill({ percentage: 0 })"
+            >
+              <i class="bi-plus"></i>
+            </button>
+          </div>
+        </div>
         <app-skill-row
           *ngFor="let item of user.skills; index as i; trackBy: skillTrackBy"
           [skill]="item"
+          [index]="i"
+          [onDelete]="handleDeleteSkill"
+          [onEdit]="handleEditSkill"
         ></app-skill-row>
       </div>
     </div>
@@ -64,7 +128,55 @@
   <section>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Proyectos</h5>
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Languages</h5>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#languageModal"
+              (click)="setModalLanguage({ percentage: 0 })"
+            >
+              <i class="bi-plus"></i>
+            </button>
+          </div>
+        </div>
+        <app-language-row
+          *ngFor="
+            let item of user.languages;
+            index as i;
+            trackBy: languageTrackBy
+          "
+          [language]="item"
+          [index]="i"
+          [onDelete]="handleDeleteLanguage"
+          [onEdit]="handleEditLanguage"
+        ></app-language-row>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Proyectos</h5>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#projectModal"
+              (click)="setModalProject({})"
+            >
+              <i class="bi-plus"></i>
+            </button>
+          </div>
+        </div>
         <app-project-row
           *ngFor="
             let item of user.projects;
@@ -72,8 +184,491 @@
             trackBy: projectTrackBy
           "
           [project]="item"
+          [index]="i"
+          [onDelete]="handleDeleteProject"
+          [onEdit]="handleEditProject"
         ></app-project-row>
       </div>
     </div>
   </section>
+
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-success" type="button" (click)="updateUser()">
+        <i class="bi-save"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="languageModal"
+  tabindex="-1"
+  aria-labelledby="languageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="languageModalLabel">Add / Edit Language</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input
+            type="text"
+            class="form-control"
+            id="language"
+            placeholder="Language"
+            [(ngModel)]="modalLanguage.language"
+          />
+        </div>
+        <div class="form-group">
+          <label for="level">Level</label>
+          <input
+            type="number"
+            class="form-control"
+            id="level"
+            placeholder="Level"
+            [(ngModel)]="modalLanguage.percentage"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalLanguage({ percentage: 0 })"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleAddLanguage()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="skillModal"
+  tabindex="-1"
+  aria-labelledby="skillModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="skillModalLabel">Add / Edit Skill</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="skill">Titulo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Title"
+            [(ngModel)]="modalSkill.title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="level">Porcentaje</label>
+          <input
+            type="number"
+            class="form-control"
+            id="percentage"
+            placeholder="percentage"
+            [(ngModel)]="modalSkill.percentage"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalSkill({ percentage: 0 })"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleAddSkill()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="infoModal"
+  tabindex="-1"
+  aria-labelledby="infoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Edit Info</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="info">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            placeholder="First Name"
+            [(ngModel)]="modalInfo.first_name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            placeholder="Last Name"
+            [(ngModel)]="modalInfo.last_name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+            [(ngModel)]="modalInfo.email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Acerca de</label>
+          <input
+            type="text"
+            class="form-control"
+            id="about"
+            placeholder="Acerca de"
+            [(ngModel)]="modalInfo.description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Edad</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            placeholder="Edad"
+            [(ngModel)]="modalInfo.age"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalInfo({})"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleSaveInfo()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="educationModal"
+  tabindex="-1"
+  aria-labelledby="infoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Editar Educacion</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="info">Titulo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Titulo"
+            [(ngModel)]="modalEducation.title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            placeholder="Descripcion"
+            [(ngModel)]="modalEducation.description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">URL Imagen</label>
+          <input
+            type="text"
+            class="form-control"
+            id="imageUrl"
+            placeholder="URL Imagen"
+            [(ngModel)]="modalEducation.imageUrl"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Fecha de inicio</label>
+          <input
+            type="text"
+            class="form-control"
+            id="initDate"
+            placeholder="Fecha de inicio"
+            [(ngModel)]="modalEducation.init_date"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Fecha de fin</label>
+          <input
+            type="text"
+            class="form-control"
+            id="endDate"
+            placeholder="Fecha de fin"
+            [(ngModel)]="modalEducation.end_date"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalEducation({})"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleAddEducation()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="experienceModal"
+  tabindex="-1"
+  aria-labelledby="infoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Editar Experiencia</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="info">Titulo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Titulo"
+            [(ngModel)]="modalExperience.title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            placeholder="Descripcion"
+            [(ngModel)]="modalExperience.description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">URL Imagen</label>
+          <input
+            type="text"
+            class="form-control"
+            id="imageUrl"
+            placeholder="URL Imagen"
+            [(ngModel)]="modalExperience.imageUrl"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Fecha de inicio</label>
+          <input
+            type="text"
+            class="form-control"
+            id="initDate"
+            placeholder="Fecha de inicio"
+            [(ngModel)]="modalExperience.init_date"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Fecha de fin</label>
+          <input
+            type="text"
+            class="form-control"
+            id="endDate"
+            placeholder="Fecha de fin"
+            [(ngModel)]="modalExperience.end_date"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalExperience({})"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleAddExperience()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="projectModal"
+  tabindex="-1"
+  aria-labelledby="infoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Editar Proyecto</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="info">Titulo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Titulo"
+            [(ngModel)]="modalProject.title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            placeholder="Descripcion"
+            [(ngModel)]="modalProject.description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Link</label>
+          <input
+            type="text"
+            class="form-control"
+            id="link"
+            placeholder="Link"
+            [(ngModel)]="modalProject.link"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="setModalProject({})"
+        >
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="handleAddProject()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

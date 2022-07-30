@@ -1,14 +1,25 @@
 <div class="row">
   <div class="col">
-    <img
-      src="{{ education.img }}"
-      class="img-thumbnail"
-      style="height: 100px"
-    />
+    <p>{{ education.title }}</p>
+    <div>{{ education.description }}</div>
+    <img src="" />
+    <div>{{ education.init_date }}</div>
+    <div>{{ education.end_date }}</div>
   </div>
   <div class="col">
-    <h5>{{ education.title }}</h5>
-    <p>{{ education.description }}</p>
-    <p class="text-muted">{{ education.lapse }}</p>
+    <button
+      class="btn btn-info"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#educationModal"
+      (click)="onEdit(education)"
+    >
+      <i class="bi-pencil" style="color: white"></i>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-danger" type="button" (click)="onDelete(index)">
+      <i class="bi-trash"></i>
+    </button>
   </div>
 </div>

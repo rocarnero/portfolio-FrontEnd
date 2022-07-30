@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProjectRowComponent implements OnInit {
   @Input() project: any;
+  @Input() index: any;
+  @Input() onDelete: any;
+  @Input() onEdit: any;
 
   constructor() {}
 

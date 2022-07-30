@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EducationRowComponent implements OnInit {
   @Input() education: any;
+  @Input() index: any;
+  @Input() onDelete: any;
+  @Input() onEdit: any;
 
   constructor() {}
 

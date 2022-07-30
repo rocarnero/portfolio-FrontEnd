@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col">
-    <p>{{ skill.title }}</p>
+    <p>{{ language.language }}</p>
   </div>
   <div class="col">
     <div class="progress">
       <div
         class="progress-bar progress-bar-striped"
         role="progressbar"
-        [style.width]="skill.percentage + '%'"
-        [attr.aria-valuenow]="skill.percentage"
+        [style.width]="language.percentage + '%'"
+        [attr.aria-valuenow]="language.percentage"
         aria-valuemin="0"
         aria-valuemax="100"
       ></div>
@@ -20,8 +20,8 @@
       class="btn btn-info"
       type="button"
       data-bs-toggle="modal"
-      data-bs-target="#skillModal"
-      (click)="onEdit(skill)"
+      data-bs-target="#languageModal"
+      (click)="onEdit(language)"
     >
       <i class="bi-pencil" style="color: white"></i>
     </button>

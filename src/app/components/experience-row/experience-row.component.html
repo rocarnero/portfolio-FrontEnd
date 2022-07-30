@@ -1,14 +1,25 @@
 <div class="row">
   <div class="col">
-    <img
-      src="{{ experience.img }}"
-      class="img-thumbnail"
-      style="height: 100px"
-    />
+    <p>{{ experience.title }}</p>
+    <div>{{ experience.description }}</div>
+    <img src="" />
+    <div>{{ experience.init_date }}</div>
+    <div>{{ experience.end_date }}</div>
   </div>
   <div class="col">
-    <h5>{{ experience.title }}</h5>
-    <p>{{ experience.description }}</p>
-    <p class="text-muted">{{ experience.lapse }}</p>
+    <button
+      class="btn btn-info"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#experienceModal"
+      (click)="onEdit(experience)"
+    >
+      <i class="bi-pencil" style="color: white"></i>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-danger" type="button" (click)="onDelete(index)">
+      <i class="bi-trash"></i>
+    </button>
   </div>
 </div>
