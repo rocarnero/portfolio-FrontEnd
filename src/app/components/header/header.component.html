@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Rocio Carnero</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -12,8 +11,84 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <button class="btn btn-outline-success" type="submit">Login</button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      *ngIf="!authService.isLoggedIn"
+    >
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        Login
+      </button>
+    </div>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      *ngIf="authService.isLoggedIn"
+    >
+      <button
+        class="btn btn-outline-danger"
+        type="submit"
+        (click)="authService.logout()"
+      >
+        Logout
+      </button>
     </div>
   </div>
 </nav>
+
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+        <button
+          type="button"
+          class="btn-Cerrar"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="info">Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="Usuario"
+            [(ngModel)]="username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="info">Clave</label>
+          <input
+            type="text"
+            class="form-control"
+            id="password"
+            placeholder="Clave"
+            [(ngModel)]="password"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="login()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

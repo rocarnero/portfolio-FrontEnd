@@ -1,19 +1,13 @@
-<div *ngIf="!user">Loading...</div>
+<div *ngIf="!user">Cargando...</div>
 
 <div *ngIf="!!user">
   <section>
     <div class="card">
-      <img
-        src="https://static.vecteezy.com/system/resources/previews/001/849/553/original/modern-gold-background-free-vector.jpg"
-        class="card-img-top img-fluid"
-        alt="..."
-        style="height: 400px"
-      />
       <div class="card-body">
         <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
         <h6 class="card-title">{{ user.email }}</h6>
         <img
-          src="https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
+          src="https://lh3.googleusercontent.com/a-/AFdZucppy5hKd198gCNc7ISLW8UJEVOMj4d5JwnVMF74xQ=s288-p-rw-no"
           class="img-thumbnail"
           style="height: 100px"
         />
@@ -23,6 +17,7 @@
           data-bs-toggle="modal"
           data-bs-target="#infoModal"
           (click)="setModalInfo(user)"
+          *ngIf="authService.isLoggedIn"
         >
           <i class="bi-pencil" style="color: white"></i>
         </button>
@@ -44,6 +39,7 @@
               data-bs-toggle="modal"
               data-bs-target="#experienceModal"
               (click)="setModalExperience({})"
+              *ngIf="authService.isLoggedIn"
             >
               <i class="bi-plus"></i>
             </button>
@@ -59,6 +55,7 @@
           [index]="i"
           [onDelete]="handleDeleteExperience"
           [onEdit]="handleEditExperience"
+          [isLoggedIn]="authService.isLoggedIn"
         ></app-experience-row>
       </div>
     </div>
@@ -68,7 +65,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title">Educacion</h5>
+            <h5 class="card-title">Educación</h5>
           </div>
           <div class="col">
             <button
@@ -77,6 +74,7 @@
               data-bs-toggle="modal"
               data-bs-target="#educationModal"
               (click)="setModalEducation({})"
+              *ngIf="authService.isLoggedIn"
             >
               <i class="bi-plus"></i>
             </button>
@@ -92,6 +90,7 @@
           [index]="i"
           [onDelete]="handleDeleteEducation"
           [onEdit]="handleEditEducation"
+          [isLoggedIn]="authService.isLoggedIn"
         ></app-education-row>
       </div>
     </div>
@@ -101,7 +100,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title">Hard Skills & Soft Skills</h5>
+            <h5 class="card-title">Habilidades duras y blandas</h5>
           </div>
           <div class="col">
             <button
@@ -110,6 +109,7 @@
               data-bs-toggle="modal"
               data-bs-target="#skillModal"
               (click)="setModalSkill({ percentage: 0 })"
+              *ngIf="authService.isLoggedIn"
             >
               <i class="bi-plus"></i>
             </button>
@@ -121,6 +121,7 @@
           [index]="i"
           [onDelete]="handleDeleteSkill"
           [onEdit]="handleEditSkill"
+          [isLoggedIn]="authService.isLoggedIn"
         ></app-skill-row>
       </div>
     </div>
@@ -130,7 +131,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title">Languages</h5>
+            <h5 class="card-title">Idiomas</h5>
           </div>
           <div class="col">
             <button
@@ -139,6 +140,7 @@
               data-bs-toggle="modal"
               data-bs-target="#languageModal"
               (click)="setModalLanguage({ percentage: 0 })"
+              *ngIf="authService.isLoggedIn"
             >
               <i class="bi-plus"></i>
             </button>
@@ -154,6 +156,7 @@
           [index]="i"
           [onDelete]="handleDeleteLanguage"
           [onEdit]="handleEditLanguage"
+          [isLoggedIn]="authService.isLoggedIn"
         ></app-language-row>
       </div>
     </div>
@@ -172,6 +175,7 @@
               data-bs-toggle="modal"
               data-bs-target="#projectModal"
               (click)="setModalProject({})"
+              *ngIf="authService.isLoggedIn"
             >
               <i class="bi-plus"></i>
             </button>
@@ -187,6 +191,7 @@
           [index]="i"
           [onDelete]="handleDeleteProject"
           [onEdit]="handleEditProject"
+          [isLoggedIn]="authService.isLoggedIn"
         ></app-project-row>
       </div>
     </div>
@@ -194,7 +199,12 @@
 
   <div class="row">
     <div class="col">
-      <button class="btn btn-success" type="button" (click)="updateUser()">
+      <button
+        class="btn btn-success"
+        type="button"
+        (click)="updateUser()"
+        *ngIf="authService.isLoggedIn"
+      >
         <i class="bi-save"></i>
       </button>
     </div>
@@ -211,7 +221,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="languageModalLabel">Add / Edit Language</h5>
+        <h5 class="modal-title" id="languageModalLabel">
+          Agregar / Editar Idioma
+        </h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -221,7 +233,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="language">Language</label>
+          <label for="language">Idioma</label>
           <input
             type="text"
             class="form-control"
@@ -231,12 +243,12 @@
           />
         </div>
         <div class="form-group">
-          <label for="level">Level</label>
+          <label for="percentage">Porcentaje</label>
           <input
             type="number"
             class="form-control"
-            id="level"
-            placeholder="Level"
+            id="percentage"
+            placeholder="Porcentaje"
             [(ngModel)]="modalLanguage.percentage"
           />
         </div>
@@ -273,7 +285,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="skillModalLabel">Add / Edit Skill</h5>
+        <h5 class="modal-title" id="skillModalLabel">
+          Agregar / Editar Habilidad
+        </h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -283,22 +297,22 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="skill">Titulo</label>
+          <label for="title">Título</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Title"
+            placeholder="Título"
             [(ngModel)]="modalSkill.title"
           />
         </div>
         <div class="form-group">
-          <label for="level">Porcentaje</label>
+          <label for="percentage">Porcentaje</label>
           <input
             type="number"
             class="form-control"
             id="percentage"
-            placeholder="percentage"
+            placeholder="Porcentaje"
             [(ngModel)]="modalSkill.percentage"
           />
         </div>
@@ -335,7 +349,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoModalLabel">Edit Info</h5>
+        <h5 class="modal-title" id="infoModalLabel">Editar Información</h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -345,27 +359,27 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="info">First Name</label>
+          <label for="firstName">Nombre</label>
           <input
             type="text"
             class="form-control"
             id="firstName"
-            placeholder="First Name"
+            placeholder="Nombre"
             [(ngModel)]="modalInfo.first_name"
           />
         </div>
         <div class="form-group">
-          <label for="info">Last Name</label>
+          <label for="lastName">Apellido</label>
           <input
             type="text"
             class="form-control"
             id="lastName"
-            placeholder="Last Name"
+            placeholder="Apellido"
             [(ngModel)]="modalInfo.last_name"
           />
         </div>
         <div class="form-group">
-          <label for="info">Email</label>
+          <label for="email">Email</label>
           <input
             type="text"
             class="form-control"
@@ -375,7 +389,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Acerca de</label>
+          <label for="about">Acerca de</label>
           <input
             type="text"
             class="form-control"
@@ -385,7 +399,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Edad</label>
+          <label for="age">Edad</label>
           <input
             type="number"
             class="form-control"
@@ -421,13 +435,15 @@
   class="modal fade"
   id="educationModal"
   tabindex="-1"
-  aria-labelledby="infoModalLabel"
+  aria-labelledby="educationModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoModalLabel">Editar Educacion</h5>
+        <h5 class="modal-title" id="educationModalLabel">
+          Agregar / Editar Educación
+        </h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -437,27 +453,27 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="info">Titulo</label>
+          <label for="title">Título</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Titulo"
+            placeholder="Título"
             [(ngModel)]="modalEducation.title"
           />
         </div>
         <div class="form-group">
-          <label for="info">Descripcion</label>
+          <label for="description">Descripción</label>
           <input
             type="text"
             class="form-control"
             id="description"
-            placeholder="Descripcion"
+            placeholder="Descripción"
             [(ngModel)]="modalEducation.description"
           />
         </div>
         <div class="form-group">
-          <label for="info">URL Imagen</label>
+          <label for="imageUrl">URL Imagen</label>
           <input
             type="text"
             class="form-control"
@@ -467,7 +483,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Fecha de inicio</label>
+          <label for="initDate">Fecha de inicio</label>
           <input
             type="text"
             class="form-control"
@@ -477,7 +493,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Fecha de fin</label>
+          <label for="endDate">Fecha de fin</label>
           <input
             type="text"
             class="form-control"
@@ -513,13 +529,15 @@
   class="modal fade"
   id="experienceModal"
   tabindex="-1"
-  aria-labelledby="infoModalLabel"
+  aria-labelledby="experienceModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoModalLabel">Editar Experiencia</h5>
+        <h5 class="modal-title" id="experienceModalLabel">
+          Agregar / Editar Experiencia
+        </h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -529,27 +547,27 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="info">Titulo</label>
+          <label for="title">Título</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Titulo"
+            placeholder="Título"
             [(ngModel)]="modalExperience.title"
           />
         </div>
         <div class="form-group">
-          <label for="info">Descripcion</label>
+          <label for="description">Descripción</label>
           <input
             type="text"
             class="form-control"
             id="description"
-            placeholder="Descripcion"
+            placeholder="Descripción"
             [(ngModel)]="modalExperience.description"
           />
         </div>
         <div class="form-group">
-          <label for="info">URL Imagen</label>
+          <label for="imageUrl">URL Imagen</label>
           <input
             type="text"
             class="form-control"
@@ -559,7 +577,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Fecha de inicio</label>
+          <label for="initDate">Fecha de inicio</label>
           <input
             type="text"
             class="form-control"
@@ -569,7 +587,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="info">Fecha de fin</label>
+          <label for="endDate">Fecha de fin</label>
           <input
             type="text"
             class="form-control"
@@ -605,13 +623,15 @@
   class="modal fade"
   id="projectModal"
   tabindex="-1"
-  aria-labelledby="infoModalLabel"
+  aria-labelledby="projectModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoModalLabel">Editar Proyecto</h5>
+        <h5 class="modal-title" id="projectModalLabel">
+          Agregar / Editar Proyecto
+        </h5>
         <button
           type="button"
           class="btn-Cerrar"
@@ -621,27 +641,27 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="info">Titulo</label>
+          <label for="title">Título</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Titulo"
+            placeholder="Título"
             [(ngModel)]="modalProject.title"
           />
         </div>
         <div class="form-group">
-          <label for="info">Descripcion</label>
+          <label for="description">Descripción</label>
           <input
             type="text"
             class="form-control"
             id="description"
-            placeholder="Descripcion"
+            placeholder="Descripción"
             [(ngModel)]="modalProject.description"
           />
         </div>
         <div class="form-group">
-          <label for="info">Link</label>
+          <label for="link">Link</label>
           <input
             type="text"
             class="form-control"

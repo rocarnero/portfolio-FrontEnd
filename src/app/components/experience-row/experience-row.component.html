@@ -13,12 +13,18 @@
       data-bs-toggle="modal"
       data-bs-target="#experienceModal"
       (click)="onEdit(experience)"
+      *ngIf="isLoggedIn"
     >
       <i class="bi-pencil" style="color: white"></i>
     </button>
   </div>
   <div class="col">
-    <button class="btn btn-danger" type="button" (click)="onDelete(index)">
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="onDelete(index)"
+      *ngIf="isLoggedIn"
+    >
       <i class="bi-trash"></i>
     </button>
   </div>

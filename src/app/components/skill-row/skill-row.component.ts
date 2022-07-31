@@ -10,6 +10,7 @@ export class SkillRowComponent implements OnInit {
   @Input() index: any;
   @Input() onDelete: any;
   @Input() onEdit: any;
+  @Input() isLoggedIn: any;
 
   constructor() {}
 
