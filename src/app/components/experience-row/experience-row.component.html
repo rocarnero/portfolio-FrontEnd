@@ -1,10 +1,17 @@
-<div class="row">
+<div class="row" style="margin-bottom: 10px; margin-top: 10px">
   <div class="col">
-    <p>{{ experience.title }}</p>
-    <div>{{ experience.description }}</div>
+    <img
+      [src]="experience.image_url"
+      class="img-thumbnail"
+      style="height: 100px"
+    />
     <img src="" />
-    <div>{{ experience.init_date }}</div>
-    <div>{{ experience.end_date }}</div>
+  </div>
+  <div class="col">
+    <h6>{{ experience.title }}</h6>
+    <div>{{ experience.description }}</div>
+    <div>Desde: {{ experience.init_date }}</div>
+    <div>Hasta: {{ experience.end_date }}</div>
   </div>
   <div class="col">
     <button

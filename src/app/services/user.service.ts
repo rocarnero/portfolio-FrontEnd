@@ -5,15 +5,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  private url = 'http://localhost:8080/';
+  private url = 'https://carnerorocio-portfolio-back.herokuapp.com';
 
   constructor(private httpClient: HttpClient) {}
 
   getUserBySlug(slug: String) {
-    return this.httpClient.get(`${this.url}${slug}`);
+    return this.httpClient.get(`${this.url}/${slug}`);
   }
 
   updateUserBySlug(slug: String, data: any) {
-    return this.httpClient.put(`${this.url}${slug}`, data);
+    return this.httpClient.put(`${this.url}/${slug}`, data);
   }
 }

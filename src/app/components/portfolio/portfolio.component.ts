@@ -166,7 +166,7 @@ export class PortfolioComponent implements OnInit {
 
   handleAddEducation() {
     if (this.modalEducation.id) {
-      this.user.educations.map((education: any) =>
+      this.user.educations = this.user.educations.map((education: any) =>
         education.id === this.modalEducation.id
           ? this.modalEducation
           : education

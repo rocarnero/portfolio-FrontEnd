@@ -1,9 +1,10 @@
-<div class="row">
+<div class="row" style="margin-bottom: 10px; margin-top: 10px">
   <div class="col">
-    <p>{{ project.title }}</p>
+    <h6>{{ project.title }}</h6>
+    <div>
+      <a [href]="project.link" target="_blank">{{ project.link }}</a>
+    </div>
     <div>{{ project.description }}</div>
-    <img src="" />
-    <div>{{ project.link }}</div>
   </div>
   <div class="col">
     <button

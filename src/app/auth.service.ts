@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'http://localhost:8080';
+  uri: string = 'https://carnerorocio-portfolio-back.herokuapp.com';
   token: any;
   constructor(private http: HttpClient, private router: Router) {}
 

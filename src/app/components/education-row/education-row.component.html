@@ -1,10 +1,16 @@
-<div class="row">
+<div class="row" style="margin-bottom: 10px; margin-top: 10px">
   <div class="col">
-    <p>{{ education.title }}</p>
+    <img
+      [src]="education.image_url"
+      class="img-thumbnail"
+      style="height: 100px"
+    />
+  </div>
+  <div class="col">
+    <h6>{{ education.title }}</h6>
     <div>{{ education.description }}</div>
-    <img src="" />
-    <div>{{ education.init_date }}</div>
-    <div>{{ education.end_date }}</div>
+    <div>Desde: {{ education.init_date }}</div>
+    <div>Hasta: {{ education.end_date }}</div>
   </div>
   <div class="col">
     <button
