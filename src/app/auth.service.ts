@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'https://carnerorocio-portfolio-back.herokuapp.com';
+  uri: string = 'https://rocarnero-portfolio-backend.onrender.com';
   token: any;
   constructor(private http: HttpClient, private router: Router) {}
 
